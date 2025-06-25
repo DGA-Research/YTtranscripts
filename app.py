@@ -1,4 +1,5 @@
 from youtube_transcript_api import YouTubeTranscriptApi
+from yt_dlp import YoutubeDL
 import subprocess
 import time
 import streamlit as st
@@ -27,7 +28,15 @@ def getVideoIds(url):
 def getTranscripts(video_ids):
   ytt_api = YouTubeTranscriptApi()
   for id in video_ids:
-    st.write(f"\n Transcript for: https://www.youtube.com/watch?v={id}")
+    # get title of video
+    try:
+      with YoutubeDL() as ydl:
+        info_dict = ydl.extract_info(f"https://www.youtube.com/watch?v={id}", download=False)
+        # Get the video title from the info dictionary
+        video_title = info_dict.get('title', None)
+    except:
+      video_title = "Unknown Title"
+    st.write(f"\n Transcript for: {video_title} https://www.youtube.com/watch?v={id}")
     try:
       fetched_transcript = ytt_api.fetch(id)
       time.sleep(1.5)  # Delay between requests to avoid rate-limiting
@@ -43,5 +52,4 @@ if st.button("Get Transcripts") and channel_url:
             st.warning("No videos found or failed to retrieve playlist.")
     else:
       getTranscripts(video_ids)
-      st.write("success!")
   
