@@ -42,5 +42,6 @@ if st.button("Get Transcripts") and channel_url:
     if not video_ids:
             st.warning("No videos found or failed to retrieve playlist.")
     else:
-      getTranscripts(video_ids)
+      st.write(getTranscripts(video_ids))
+      st.write("success!")
   
