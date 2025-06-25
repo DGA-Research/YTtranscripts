@@ -27,14 +27,14 @@ def getVideoIds(url):
 def getTranscripts(video_ids):
   ytt_api = YouTubeTranscriptApi()
   for id in video_ids:
-    print(f"\n Transcript for: https://www.youtube.com/watch?v={id}")
+    st.write(f"\n Transcript for: https://www.youtube.com/watch?v={id}")
     try:
       fetched_transcript = ytt_api.fetch(id)
       time.sleep(1.5)  # Delay between requests to avoid rate-limiting
       for snippet in fetched_transcript:
-          print(snippet.text)
+          st.write(snippet.text)
     except:
-      print(f"Error with getTranscripts(). Transcript could not be extracted for https://www.youtube.com/watch?v={id}\n")
+      st.write(f"Error with getTranscripts(). Transcript could not be extracted for https://www.youtube.com/watch?v={id}\n")
 
 if st.button("Get Transcripts") and channel_url:
   with st.spinner("Pulling transcripts..."):
@@ -42,6 +42,6 @@ if st.button("Get Transcripts") and channel_url:
     if not video_ids:
             st.warning("No videos found or failed to retrieve playlist.")
     else:
-      st.write(getTranscripts(video_ids))
+      getTranscripts(video_ids)
       st.write("success!")
   
