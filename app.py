@@ -37,7 +37,7 @@ def getTranscripts(video_ids):
       print(f"Error with getTranscripts(). Transcript could not be extracted for https://www.youtube.com/watch?v={id}\n")
 
 if st.button("Get Transcripts") and channel_url:
-  with st.spinner("Pulling transcripts...")
+  with st.spinner("Pulling transcripts..."):
     video_ids = getVideoIds(channel_url)
     if not video_ids:
             st.warning("No videos found or failed to retrieve playlist.")
