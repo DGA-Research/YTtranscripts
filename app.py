@@ -36,14 +36,14 @@ def getTranscripts(video_ids):
         video_title = info_dict.get('title', None)
     except:
       video_title = "Unknown Title"
-    st.write(f"\n Transcript for: {video_title} https://www.youtube.com/watch?v={id}")
+    st.write(f"**\n Transcript for: {video_title} (https://www.youtube.com/watch?v={id})**")
     try:
       fetched_transcript = ytt_api.fetch(id)
       time.sleep(1.5)  # Delay between requests to avoid rate-limiting
       for snippet in fetched_transcript:
           st.write(snippet.text)
     except:
-      st.write(f"Error with getTranscripts(). Transcript could not be extracted for https://www.youtube.com/watch?v={id}\n")
+      st.write(f"Error with getTranscripts(). Transcript could not be extracted.\n")
 
 if st.button("Get Transcripts") and channel_url:
   with st.spinner("Pulling transcripts..."):
