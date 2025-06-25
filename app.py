@@ -1,6 +1,5 @@
 from youtube_transcript_api import YouTubeTranscriptApi
 import subprocess
-!pip install yt-dlp
 import time
 import streamlit as st
 
